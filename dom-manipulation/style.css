@@ -1,0 +1,23 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+.quote-box {
+  margin-top: 20px;
+  padding: 20px;
+  background: #e6f7ff;
+  border-left: 4px solid #1890ff;
+  font-style: italic;
+}
+input, select, button {
+  margin-top: 10px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}

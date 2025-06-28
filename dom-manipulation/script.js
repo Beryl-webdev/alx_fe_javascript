@@ -10,54 +10,119 @@ const categories = {
   ]
 };
 
-const categorySelect = document.getElementById("category");
-const quoteDisplay = document.getElementById("quote-display");
-const newQuoteBtn = document.getElementById("new-quote");
-const addQuoteBtn = document.getElementById("add-quote");
-const addCategoryBtn = document.getElementById("add-category");
+function createCategoryDropdown() {
+  const label = document.createElement("label");
+  label.textContent = "Select Category:";
+  label.setAttribute("for", "category");
 
-function populateCategories() {
-  categorySelect.innerHTML = "";
-  Object.keys(categories).forEach(cat => {
+  const select = document.createElement("select");
+  select.id = "category";
+
+  updateCategoryOptions(select);
+
+  const button = document.createElement("button");
+  button.id = "new-quote";
+  button.textContent = "New Quote";
+  button.addEventListener("click", () => {
+    const quote = getRandomQuote(select.value);
+    document.getElementById("quote-display").textContent = quote;
+  });
+
+  document.body.append(label, select, button);
+}
+
+function updateCategoryOptions(selectElement) {
+  selectElement.innerHTML = "";
+  Object.keys(categories).forEach(category => {
     const option = document.createElement("option");
-    option.value = cat;
-    option.textContent = cat[0].toUpperCase() + cat.slice(1);
-    categorySelect.appendChild(option);
+    option.value = category;
+    option.textContent = category[0].toUpperCase() + category.slice(1);
+    selectElement.appendChild(option);
   });
 }
 
-function showRandomQuote() {
-  const selected = categorySelect.value;
-  const quotes = categories[selected];
-  const randomIndex = Math.floor(Math.random() * quotes.length);
-  quoteDisplay.textContent = quotes[randomIndex];
+function getRandomQuote(category) {
+  const quotes = categories[category];
+  if (!quotes || quotes.length === 0) return "No quotes in this category.";
+  const index = Math.floor(Math.random() * quotes.length);
+  return quotes[index];
 }
 
-function addQuote() {
-  const text = document.getElementById("new-quote-text").value.trim();
-  const cat = document.getElementById("quote-category").value.trim().toLowerCase();
-  if (!text || !cat) return alert("Please fill in both fields.");
-
-  if (!categories[cat]) {
-    categories[cat] = [];
-  }
-  categories[cat].push(text);
-  populateCategories();
-  alert(`Quote added under '${cat}' category.`);
+function createQuoteDisplayBox() {
+  const div = document.createElement("div");
+  div.id = "quote-display";
+  div.className = "quote-box";
+  div.textContent = "Your quote will appear here.";
+  document.body.appendChild(div);
 }
 
-function addCategory() {
-  const newCat = document.getElementById("new-category").value.trim().toLowerCase();
-  if (!newCat) return alert("Please enter a category name.");
-  if (categories[newCat]) return alert("Category already exists.");
+function createAddQuoteForm() {
+  const heading = document.createElement("h2");
+  heading.textContent = "Add a New Quote";
 
-  categories[newCat] = [];
-  populateCategories();
-  alert(`Category '${newCat}' added.`);
+  const quoteInput = document.createElement("input");
+  quoteInput.type = "text";
+  quoteInput.id = "new-quote-text";
+  quoteInput.placeholder = "Enter quote";
+
+  const categoryInput = document.createElement("input");
+  categoryInput.type = "text";
+  categoryInput.id = "quote-category";
+  categoryInput.placeholder = "Enter category (existing or new)";
+
+  const button = document.createElement("button");
+  button.id = "add-quote";
+  button.textContent = "Add Quote";
+  button.addEventListener("click", () => {
+    const quote = quoteInput.value.trim();
+    const category = categoryInput.value.trim().toLowerCase();
+    if (!quote || !category) return alert("Please fill in both fields.");
+    if (!categories[category]) categories[category] = [];
+    categories[category].push(quote);
+
+    const select = document.getElementById("category");
+    updateCategoryOptions(select);
+
+    quoteInput.value = "";
+    categoryInput.value = "";
+    alert(`Quote added under '${category}'`);
+  });
+
+  document.body.append(heading, quoteInput, categoryInput, button);
 }
 
-newQuoteBtn.addEventListener("click", showRandomQuote);
-addQuoteBtn.addEventListener("click", addQuote);
-addCategoryBtn.addEventListener("click", addCategory);
+function createAddCategoryForm() {
+  const heading = document.createElement("h2");
+  heading.textContent = "Add a New Category";
 
-window.onload = populateCategories;
+  const input = document.createElement("input");
+  input.type = "text";
+  input.id = "new-category";
+  input.placeholder = "Enter new category";
+
+  const button = document.createElement("button");
+  button.id = "add-category";
+  button.textContent = "Add Category";
+  button.addEventListener("click", () => {
+    const newCat = input.value.trim().toLowerCase();
+    if (!newCat) return alert("Please enter a category name.");
+    if (categories[newCat]) return alert("Category already exists.");
+    categories[newCat] = [];
+
+    const select = document.getElementById("category");
+    updateCategoryOptions(select);
+
+    input.value = "";
+    alert(`Category '${newCat}' added.`);
+  });
+
+  document.body.append(heading, input, button);
+}
+
+// Run when page loads
+window.onload = function () {
+  createCategoryDropdown();
+  createQuoteDisplayBox();
+  createAddQuoteForm();
+  createAddCategoryForm();
+};

@@ -1,31 +1,43 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dynamic Quote Generator</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin: 2rem;
+    }
+    select, input, button {
+      margin: 0.5rem;
+      padding: 0.5rem;
+    }
+    .quote-box {
+      margin-top: 2rem;
+      padding: 1rem;
+      border: 2px solid #aaa;
+      border-radius: 8px;
+      background: #f9f9f9;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Dynamic Quote Generator</h1>
+  <h1>Dynamic Quote Generator</h1>
 
-    <label for="category">Select Category:</label>
-    <select id="category"></select>
-    <button id="new-quote">New Quote</button>
+  <select id="categorySelect"></select>
+  <button id="newQuoteBtn">Show New Quote</button>
 
-    <div id="quote-display" class="quote-box">Your quote will appear here.</div>
+  <div class="quote-box" id="quoteBox">Select a category and click "Show New Quote"</div>
 
-    <h2>Add a New Quote</h2>
-    <input type="text" id="new-quote-text" placeholder="Enter quote" />
-    <input type="text" id="quote-category" placeholder="Enter category (existing or new)" />
-    <button id="add-quote">Add Quote</button>
-
-    <h2>Add a New Category</h2>
-    <input type="text" id="new-category" placeholder="Enter new category" />
-    <button id="add-category">Add Category</button>
-  </div>
+  <h2>Add New Quote</h2>
+  <input type="text" id="newQuoteText" placeholder="Enter quote" />
+  <input type="text" id="newQuoteCategory" placeholder="Enter category" />
+  <button id="addQuoteBtn">Add Quote</button>
 
   <script src="script.js"></script>
 </body>
 </html>
+

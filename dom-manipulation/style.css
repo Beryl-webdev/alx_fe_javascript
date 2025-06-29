@@ -1,23 +1,74 @@
+/* General Styles */
 body {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  background-color: #f9f9f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  background: #f2f2f2;
+  padding: 2rem;
+  color: #333;
 }
-.container {
-  max-width: 600px;
-  margin: auto;
+
+/* Headings */
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
+
+h2 {
+  margin-top: 2.5rem;
+  color: #555;
+}
+
+/* Form Elements */
+select, input[type="text"], button {
+  margin: 0.5rem;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+input[type="text"]:focus, select:focus {
+  border-color: #007BFF;
+  box-shadow: 0 0 5px rgba(0,123,255,0.4);
+}
+
+button {
+  cursor: pointer;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Quote Display Box */
 .quote-box {
-  margin-top: 20px;
-  padding: 20px;
-  background: #e6f7ff;
-  border-left: 4px solid #1890ff;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #fff;
+  border: 2px dashed #007BFF;
+  border-radius: 10px;
   font-style: italic;
+  font-size: 1.2rem;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-input, select, button {
-  margin-top: 10px;
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  input[type="text"], select, button {
+    width: 90%;
+    margin: 0.5rem auto;
+  }
+
+  .quote-box {
+    font-size: 1rem;
+    padding: 1rem;
+  }
 }
